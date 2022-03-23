@@ -1,5 +1,10 @@
 -- Version: 1.0.0
 
+--Key system
+local keys = {
+    "Complex"
+} 
+
 --Executor Checker
 local webhookcheck =
    is_sirhurt_closure and "Sirhurt" or pebc_execute and "ProtoSmasher" or syn and "Synapse X" or
@@ -53,11 +58,6 @@ game:GetService("Players").LocalPlayer.Idled:connect(function()
    wait(1)
    vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
 end)
-
---Key system
-local keys = {
-    "Complex"
-} 
 
 local premium = {
     "FF41096E-1A0F-45B6-BA44-9F4083E65924", --RFRestaurant_Holder
