@@ -118,10 +118,3 @@ else
         end
     })
 end
-
---Key Checker
-if getgenv().A53C59H2E539D4VAG153W_KeyCheck == nil then
-    game.Players.LocalPlayer:Kick("Bypass Detected!")
-elseif getgenv().A53C59H2E539D4VAG153W_KeyCheck == false then
-    game.Players.LocalPlayer:Kick("Bypass Detected!")
-end
