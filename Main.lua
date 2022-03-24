@@ -2,7 +2,7 @@
 
 --Key system
 local keys = {
-    "Complex"
+    "EpicCXRelease"
 } 
 
 --Executor Checker
