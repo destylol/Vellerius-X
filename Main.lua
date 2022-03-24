@@ -68,8 +68,7 @@ local premium = {
     "6244DF23-18BC-44CE-8991-5D7EDBB51D66", --Thomas_mp5 [Administrator]
     "C86AADD1-AC21-484D-B5A5-0F383E29AAB8", --ilikeupaps
     "4BBC9355-A2D9-48A7-80C7-5A7F4AC6EAB6", --BOIYOUDIEDTOME
-    "2A3F0BB6-7C09-448C-A782-8079EBAF2FA1", --Corrupt
-} 
+}
 
 local hwidBanned = {
     "32CDC316-A0E2-49A9-9A3C-8AC479E0E74A",
@@ -94,7 +93,7 @@ elseif table.find(premium, HWID) then
     getgenv().B2WA42W153C5EF6A653AB_KeyCheck = true
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Corrupt2625/Bloxfruits/main/Main.lua"))()
 else
-    local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
+    local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
     
     local GRGUI = Material.Load({
         Title = "Lynzv-CX | Key System",
@@ -107,7 +106,7 @@ else
         }
     })
 
-    local KeyTab = addTab({
+    local KeyTab = GRGUI.new({
         Title = "Key Tab",
     })
 
