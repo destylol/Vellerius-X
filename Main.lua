@@ -94,7 +94,7 @@ elseif table.find(premium, HWID) then
     getgenv().B2WA42W153C5EF6A653AB_KeyCheck = true
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Corrupt2625/Bloxfruits/main/Main.lua"))()
 else
-    local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
+    local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
     
     local GRGUI = Material.Load({
         Title = "Lynzv-CX | Key System",
