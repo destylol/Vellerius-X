@@ -106,7 +106,7 @@ else
         }
     })
 
-    local KeyTab = GRGUI.new({
+    local KeyTab = GRGUI.New({
         Title = "Key Tab",
     })
 
