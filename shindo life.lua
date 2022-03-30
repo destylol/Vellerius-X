@@ -1,3 +1,5 @@
+getgenv().TextColorChange = Color3.fromRGB(0, 128, 255)
+
 if getgenv().Magnet then
     Mode = "Magnet"
 else
@@ -39,69 +41,7 @@ end
 --UI Lib Loading
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
 local venyx = library.new("Lynzv-CX | Shindo life")
-local Key = "EpicCXRelease"
-local Window = UILib:addPage("Key System")
-local TabMain = Window:addSection("Key System")
-
-TabMain:addButton("ALERT: Press enter after you typed in, or it wont work")
-TabMain:addButton("Copy Key System Link", function()
-	setclipboard("https://link-center.net/425575/complex-hub-key")
-	wait(2)
-	UILib:Notify("Copied Link to Clipboard")
-end)
-
-TabMain:addTextbox("Key", true,function(txt)
-	EnterKey = txt
-	game:GetService("StarterGui"):SetCore("SendNotification", {
-		Title = "Lynzv-CX V1",
-		Text = "Entered Key: "..EnterKey;
-		Icon = "rbxassetid://6238537240",
-		Duration = 5,
-	})
-end)
-
-TabMain:addButton("Login",function()
-	if table.find(Key, EnterKey) then
-		game:GetService("StarterGui"):SetCore("SendNotification", {
-			Title = "Lynzv-CX V1",
-			Text = "Correct Key",
-			Icon = "rbxassetid://6238537240",
-			Duration = 5,
-		})
-		getgenv().y8m0scboobig3jfvwqmjxtdoe3pjjklts3syoviz = true
-	else
-		game:GetService("StarterGui"):SetCore("SendNotification", {
-			Title = "Lynzv-CX V1",
-			Text = "Incorrect Key",
-			Icon = "rbxassetid://6238537240",
-			Duration = 5,
-		})
-	end
-end)
-if syn then
-syn.request({
-Url = "http://127.0.0.1:6463/rpc?v=1",
-Method = "POST",
-Headers = {
-	["Content-Type"] = "application/json",
-	["Origin"] = "https://discord.com"
-},
-Body = game:GetService("HttpService"):JSONEncode({
-	cmd = "INVITE_BROWSER",
-	args = {
-		code = "Lynzv"
-	},
-	nonce = game:GetService("HttpService"):GenerateGUID(false)
-}),
-})
-else 
-	setclipboard("https://discord.gg/64QjKpdjgz")
-	game.StarterGui:SetCore("SendNotification", {
-	Title = "Discord"; 
-	Text = "Discord Link Copied";
-	Duration = 3; 
-})
-end
+venyx:setTheme("TextColor",TextColorChange)
 
 -- themes
 local themes = {
@@ -114,7 +54,7 @@ TextColor = Color3.fromRGB(0, 128, 255)
 }
 
 --Two page
-local page2 = venyx:addPage("Autofarm", 5012544693)
+local page2 = venyx:addPage("Autofarm", 6035145364)
 local Farm = page2:addSection("Mission Farm")
 local Scroll = page2:addSection("Scroll Farm")
 getgenv().speed = 500
@@ -146,7 +86,7 @@ getgenv().speed = 500
     
 
 --Warmode Page
-local warmodepage = venyx:addPage("War Farm", 5012544693)
+local warmodepage = venyx:addPage("War Farm", 7251993295)
 local warfarm = warmodepage:addSection("Warmode")
 
 local war
@@ -160,7 +100,7 @@ local war
     end)
 
 --Three page
-local page3 = venyx:addPage("Quests Maker", 5012544693)
+local page3 = venyx:addPage("Quests Maker", 7061402283)
 local d = page3:addSection("Quests Maker")
 
     d:addButton("Rush",function()
@@ -451,8 +391,8 @@ local d = page3:addSection("Quests Maker")
 	
 --Four page
 if game.PlaceId == menuplace then
-local inf = venyx:addPage("Inf Spin", 5012544693)
-local spin = inf:addSection("Infinity Spin")
+local inf = venyx:addPage("Auto spins", 6035161534)
+local spin = inf:addSection("Auto spin")
 
 	--main menu
 	local kgs = {}
@@ -902,13 +842,7 @@ end)
 setting:addToggle("AutoFarm Click",getgenv().AutoFarmClick,function(Value)
 	getgenv().AutoFarmClick = Value
 end)
-Setting:addSlider("Magnet Distance",getgenv().MagnetDistance,100,400,function(x)
-    getgenv().MagnetDistance = x
-end)
 
-setting:addSlider("Fast Attack CD",getgenv().FastAttackCD,0,1,function(x)
-   getgenv().FastAttackCD = x
-end)
 setting:addToggle("Refresh Mob if it took too long(Soon)",getgenv().MobRefresh,function(value)
 	getgenv().MobRefresh = value
 end)
@@ -918,11 +852,6 @@ setting:addToggle("MobAura: Magnet",getgenv().MobAuraBring,function(value)
 end)
 
 setting:addKeybind("Hide UI", Enum.KeyCode.RightControl, function()
-    lib:toggle()
- end, function()
-end)
-
-setting:addKeybind("Show/Hide Settings", Enum.KeyCode.P, function()
     print("Activated Keybind")
     venyx:toggle()
     end, function()
@@ -937,3 +866,9 @@ end
 
 -- load
 venyx:SelectPage(venyx.pages[1], true)
+
+venyx:Notify("Loaded")
+wait(0.1)
+venyx:Notify("UI made by venyx.")
+wait(3)
+venyx.Notify("Script made by Corrupt.")
