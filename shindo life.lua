@@ -495,7 +495,7 @@ TeleportFunction:addToggle("Ctrl + Click = TP",false,function(vu)
 TeleportFunction:addButton("More coming soon")
 
 --Misc Tab
-local Misc = lib:addPage("Misc", 6034900727)
+local Misc = venyx:addPage("Misc", 6034900727)
 local RSFunction = Misc:addSection("Misc")
 local LocalPlayer = game:GetService'Players'.LocalPlayer
 
