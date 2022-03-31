@@ -822,7 +822,7 @@ end)
 setting:addButton("Delete Ui",function()
     local ui = game:GetService("CoreGui"):FindFirstChild("Lynzv-CX | Shindo life")
     if ui then
-        venyx.Notify("The ui will be destroyed in three seconds")
+        venyx:Notify("The ui will be destroyed in three seconds")
        ui:Destroy()
     end
  end)
