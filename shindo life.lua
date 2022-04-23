@@ -1,5 +1,3 @@
-getgenv().TextColorChange = Color3.fromRGB(0, 128, 255)
-
 if getgenv().Magnet then
     Mode = "Magnet"
 else
@@ -39,101 +37,103 @@ function toTarget(pos, targetPos, targetCFrame)
 end
 
 --UI Lib Loading
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
-local venyx = library.new("Lynzv-CX | Shindo life")
-venyx:setTheme("TextColor",TextColorChange)
-
--- themes
-local themes = {
-Background = Color3.fromRGB(15, 15, 15),
-Glow = Color3.fromRGB(0, 128, 255),
-Accent = Color3.fromRGB(10, 10, 10),
-LightContrast = Color3.fromRGB(20, 20, 20),
-DarkContrast = Color3.fromRGB(10, 10, 10),
-TextColor = Color3.fromRGB(0, 128, 255)
-}
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local venyx = library.CreateLib("Vellerius X | Shindo life", "Midnight")
 
 --Two page
-local page2 = venyx:addPage("Autofarm", 6035145364)
-local Farm = page2:addSection("Mission Farm")
-local Scroll = page2:addSection("Scroll Farm")
+local Autofarm = venyx:NewTab("Autofarm")
+local Farm = Autofarm:NewSection("Mission Farm")
+local Scroll = Autofarm:NewSection("Scroll Farm")
 getgenv().speed = 500
 
 
 	local autofarm
-	Farm:addToggle("AutoFarm", nil, function(bool)
-		autofarm = bool
+	Farm:NewToggle("AutoFarm", "This function wil auto farm quests for you", function(v)
+		autofarm = v
 	end)
 
 	local gift
-    Farm:addToggle("Farm Gift Box", nil, function(bool)
-		gift = bool
+    Farm:NewToggle("Farm Gift Box", "This function will auto get gifts for you!", function(v)
+		gift = v
     end)
     
   	local RANKUP
-    Farm:addToggle("AutoRank", nil, function(bool)
-		RANKUP = bool
+    Farm:NewToggle("AutoRank", "This function will auto rank up for you!", function(v)
+		RANKUP = v
     end)
     
-    	local jinfarm
-    Scroll:addToggle("Jin Farm", nil, function(bool)
-		jinfarm = bool
+    local jinfarm
+    Scroll:NewToggle("Jin Farm", "This function will auto get jin scrolls for you!", function(v)
+		jinfarm = v
     end)
 
-    Scroll:addToggle("Scroll Farm", nil, function(bool)
-		scrollfarm = bool
+    local scrollfarm
+    Scroll:NewToggle("Scroll Farm", "This function will auto get scrolls for you!", function(v)
+		scrollfarm = v
     end)
     
 
 --Warmode Page
-local warmodepage = venyx:addPage("War Farm", 7251993295)
-local warfarm = warmodepage:addSection("Warmode")
+local warmodetab = venyx:NewTab("War Farm")
+local warfarm = warmodetab:NewSection("Warmode")
 
 local war
-    warfarm:addToggle("Warmode", nil, function(bool)
-	   war = bool
+    warfarm:NewToggle("Warmode", nil, function(v)
+	   war = v
 	end)
 	
     local reset
-    warfarm:addToggle("Reset round 21", nil, function(bool)
-        reset = bool
+    warfarm:NewToggle("Reset round 21", nil, function(v)
+        reset = v
     end)
 
 --Three page
-local page3 = venyx:addPage("Quests Maker", 7061402283)
-local d = page3:addSection("Quests Maker")
+local Quest = venyx:NewTab("Quests Maker")
+local d = Quest:NewSection("Quests Maker")
 
-    d:addButton("Rush",function()
-		for i = 1,300 do
-			game.Players.LocalPlayer.Character.combat.update:FireServer("rushw")
-			wait(.25)
+    d:NewToggle("Rush", "This function will automaticaly do rushes for you!",function(v)
+        getgenv().Rush = v
+        if getgenv().Rush then
+            for i = 1,300 do
+                game.Players.LocalPlayer.Character.combat.update:FireServer("rushw")
+                wait(.25)
+            end
+        end
+    end)
+
+    d:NewToggle("Jumps", "This function will automaticaly do jumps for you!",function(v)
+        getgenv().Punches = v
+        if getgenv().Punches then
+            for v = 1,300 do
+                game.Players.LocalPlayer.Character.combat.update:FireServer("takemovement2")
+                wait(.25)
+            end
+        end
+    end)
+
+    d:NewToggle("Chakra Charges", "This function will automaticaly charge your chakra!", function(v)
+        getgenv().chakra = v
+        if getgenv().chakra then
+            for i = 1,500 do
+                game.Players.LocalPlayer.Character.combat.update:FireServer("key","c")
+                wait(.1)
+                game.Players.LocalPlayer.Character.combat.update:FireServer("key","cend")
+                wait(.5)
+            end
 		end
     end)
 
-    d:addButton("Jumps",function()
-		for v = 1,300 do
-			game.Players.LocalPlayer.Character.combat.update:FireServer("takemovement2")
-			wait(.25)
-		end
+    d:NewToggle("Punches", "This will automaticaly do punches for you!",function(v)
+        getgenv().Punches = v
+        if getgenv().Punches then
+            for i = 1,999 do
+                game.Players.LocalPlayer.Character.combat.update:FireServer("mouse1",true)
+                wait(.3)
+            end
+        end
     end)
 
-    d:addButton("Chakra Charges",function()
-		for i = 1,500 do
-			game.Players.LocalPlayer.Character.combat.update:FireServer("key","c")
-			wait(.1)
-			game.Players.LocalPlayer.Character.combat.update:FireServer("key","cend")
-			wait(.5)
-		end
-    end)
-
-    d:addButton("Punches",function()
-		for i = 1,999 do
-			game.Players.LocalPlayer.Character.combat.update:FireServer("mouse1",true)
-			wait(.3)
-		end
-    end)
-
-    d:addButton("TP TrainLog",function()
+    d:NewButton("TP TrainLog", "This function will tp you to a training log!",function()
         local player = game.Players.LocalPlayer
 		toTarget(player.Character.HumanoidRootPart.Position,workspace.npc.logtraining:FindFirstChild("HumanoidRootPart").Position,CFrame.new(game:GetService("Workspace").npc.logtraining:FindFirstChild("HumanoidRootPart").Position))
 	end)
@@ -389,170 +389,30 @@ local d = page3:addSection("Quests Maker")
 		end
 	end)
 	
---Four page
-if game.PlaceId == menuplace then
-local inf = venyx:addPage("Auto spins", 6035161534)
-local spin = inf:addSection("Auto spin")
-
-	--main menu
-	local kgs = {}
-	for i,v in pairs(game:GetService("ReplicatedStorage").alljutsu:GetChildren()) do
-		if v:FindFirstChild("KG") then
-			table.insert(kgs, v.Name)
-		end
-	end
-	
-	local b
-	local kgslot
-	local kgvalue
-	spin:addDropdown("KG SLOT",{"kg1", "kg2", "kg3", "kg4"},function(kgS)
-		b = kgS
-		kgslot = game.Players.LocalPlayer.statz.main:FindFirstChild(b)
-		kgvalue = kgslot.Value
-		print(kgslot)
-		print(kgvalue)
-	end)
-	local a1
-	spin:addDropdown("KG Select",kgs,function(KG1)
-		print("Selected: " .. KG1)
-		a1 = KG1
-	end)
-	local a2
-	spin:addDropdown("KG Select",kgs,function(KG2)
-		print("Selected: " .. KG2)
-		a2 = KG2
-	end)
-	local a3
-	spin:addDropdown("KG Select",kgs,function(KG3)
-		print("Selected: " .. KG3)
-		a3 = KG3
-	end)
-	local a4
-	spin:addDropdown("KG Select",kgs,function(KG4)
-		print("Selected: " .. KG4)
-		a4 = KG4
-	end)
-	local a5
-	spin:addDropdown("KG Select",kgs,function(KG5)
-		print("Selected: " .. KG5)
-		a5 = KG5
-	end)
-	spin:addButton("Start Spin KG",function()
-		kgslot.ChildAdded:Connect(function(yes)
-            if yes.Name == "dontspin" then
-                wait(.1)
-                yes:Destroy()
-            end
-		end)
-    
-		local spins = game.Players.LocalPlayer.statz.spins.Value
-		local des = game.Players.LocalPlayer.statz.spins
-        spawn(function()
-            for i,v in pairs(game:GetService("ReplicatedStorage").alljutsu:GetChildren()) do
-            	if v:FindFirstChild("KG") then
-                    local a = Instance.new("StringValue")
-                    a.Name = v.Name
-                    a.Parent = game.Players.LocalPlayer.statz.genkailevel
-            	end
-            end
-        end)
-        
-		spawn(function()
-		    while wait() do
-		        if spins > 0 then
-            		spins = game.Players.LocalPlayer.statz.spins.Value
-            		kgvalue = kgslot.Value
-            		print("Rolled: " .. kgvalue)
-            		if kgvalue ~= a1 and kgvalue ~= a2 and kgvalue ~= a3 and kgvalue ~= a4 and kgvalue ~= a5 then
-            		    kgvalue = kgslot.Value
-            			game.Players.LocalPlayer.startevent:FireServer("spin", b)
-            			wait(.2)
-            			kgvalue = kgslot.Value
-            		else
-            		    print("You have got: " .. kgvalue)
-            		end
-                else
-                    player.statz.spins:Destroy()
-                    game:GetService('TeleportService'):Teleport(game.PlaceId, player)
-		        end
-		    end
-		end)
-	end)
-
-	spin:addButton("Reset Spin NOW",function()
-        player.statz.spins:Destroy()
-        game:GetService('TeleportService'):Teleport(game.PlaceId, player)	 
-    end)
-end
---Teleport tab
-local Teleport = venyx:addPage("Teleport", 7061398829)
-local TeleportFunction = Teleport:addSection("Teleport Function")
-
-TeleportFunction:addToggle("Ctrl + Click = TP",false,function(vu)
-    CTRL = vu
- end)
-
-TeleportFunction:addButton("More coming soon")
-
 --Misc Tab
-local Misc = venyx:addPage("Misc", 6034900727)
-local RSFunction = Misc:addSection("Misc")
+local Misc = venyx:NewTab("Misc")
+local RSFunction = Misc:NewSection("Misc")
 local LocalPlayer = game:GetService'Players'.LocalPlayer
-
-function isnil(thing)
-    return (thing == nil)
- end
- local function round(n)
-    return math.floor(tonumber(n) + 0.5)
- end
- Number = math.random(1, 1000000)
- function UpdatePlayerChams()
-    for i,v in pairs(game:GetService'Players':GetChildren()) do
-       pcall(function()
-          if not isnil(v.Character) then
-             if ESPPlayer then
-                if not isnil(v.Character.Head) and not v.Character.Head:FindFirstChild('NameEsp'..Number) then
-                   local bill = Instance.new('BillboardGui',v.Character.Head)
-                   bill.Name = 'NameEsp'..Number
-                   bill.ExtentsOffset = Vector3.new(0, 1, 0)
-                   bill.Size = UDim2.new(1,200,1,30)
-                   bill.Adornee = v.Character.Head
-                   bill.AlwaysOnTop = true
-                   local name = Instance.new('TextLabel',bill)
-                   name.Font = "GothamBold"
-                   name.FontSize = "Size14"
-                   name.TextWrapped = true
-                   name.Text = (v.Name ..' \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Character.Head.Position).Magnitude/3) ..' M')
-                   name.Size = UDim2.new(1,0,1,0)
-                   name.TextYAlignment = 'Top'
-                   name.BackgroundTransparency = 1
-                   name.TextStrokeTransparency = 0.5
-                   if v.Team == game.Players.LocalPlayer.Team then
-                      name.TextColor3 = Color3.new(0,255,0)
-                   else
-                      name.TextColor3 = Color3.new(255,0,0)
-                   end
-                else
-                   v.Character.Head['NameEsp'..Number].TextLabel.Text = (v.Name ..'   \n'.. round((game:GetService('Players').LocalPlayer.Character.Head.Position - v.Character.Head.Position).Magnitude/3) ..' M')
-                end
-             else
-                if v.Character.Head:FindFirstChild('NameEsp'..Number) then
-                   v.Character.Head:FindFirstChild('NameEsp'..Number):Destroy()
-                end
-             end
-          end
-       end)
-    end
- end
  
- RSFunction:addToggle("ESP Player",false,function(a)
-	ESPPlayer = a
-	while ESPPlayer do wait()
-	   UpdatePlayerChams()
-	end
+ local ESP = loadstring(game:HttpGet("https://kiriot22.com/releases/ESP.lua"))()
+ ESP:Toggle(true)
+ ESP.Players = false
+ ESP.Tracers = false
+ ESP.Names = false
+
+ RSFunction:NewToggle("Player ESP", "This function can let you toggle on the ESP feature!", function(value)
+     ESP.Players = value
  end)
 
- RSFunction:addToggle("Auto Click",false,function(value)
+ RSFunction:NewToggle("Tracer ESP", "This function can let you trace all player!", function(value)
+     ESP.Tracers = value    
+ end)
+
+ RSFunction:NewToggle("Names ESP", "This function can let you show all player username!", function(value)
+     ESP.Names = value 
+ end)
+
+ RSFunction:NewToggle("Auto Click","This function lets you auto click for the autofarm!",function(value)
 	AuctoClick = value
 	getgenv().C = value
 	if getgenv().C == false then return end 
@@ -568,11 +428,11 @@ function isnil(thing)
 	end
  end)
 
- RSFunction:addTextbox("Change the message!!", false, function(m)
+ RSFunction:NewTextBox("Change the message!!", "This function lets you type a message to spam!", function(m)
 	chat = m
  end)
 
- RSFunction:addToggle("Spam Message!!",false,function(s)
+ RSFunction:NewToggle("Spam Message!!", "This function lets you spam the message you typed!",function(s)
 	_G.A = s
 	if _G.A == false then return end 
 	while _G.A do wait(.1)
@@ -582,40 +442,7 @@ function isnil(thing)
 	end
  end)
 
- RSFunction:addToggle("Highlight Mode",false,function(t)
-	getgenv().HighlightMode = t
-	if getgenv().HighlightMode  == false then return end 
-	while getgenv().HighlightMode do wait()
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Beli.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.HP.Visible = true
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Energy.Visible = true
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.StatsButton.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ShopButton.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Skills.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Level.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.MenuButton.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Code.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Settings.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Mute.Visible = false
-	   game:GetService("Players")["LocalPlayer"].PlayerGui.Main.CrewButton.Visible = false
-	   if not getgenv().HighlightMode  then
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Beli.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.HP.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Energy.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.StatsButton.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.ShopButton.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Skills.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Level.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.MenuButton.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Code.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Settings.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Mute.Visible = true
-		  game:GetService("Players")["LocalPlayer"].PlayerGui.Main.CrewButton.Visible = true
-	   end
-	end
- end)
-
- Fly = false  
+Fly = false  
 speedSET = 25
 function activatefly()
    local mouse=game.Players.LocalPlayer:GetMouse''
@@ -706,16 +533,16 @@ function activatefly()
    start()
 end
 
-RSFunction:addToggle("Fly (Broken)",false,function(Value)
+RSFunction:NewToggle("Fly", "This function will let you fly!", function(Value)
   Fly = Value
   activatefly()
 end)
 
-RSFunction:addSlider("Fly Speed",speedSET,10,100,function(Value)
+RSFunction:NewSlider("Fly Speed", "This slider will allow you to change you fly speed!",speedSET, 50,function(Value)
    speedSET = Value
 end)
 
-RSFunction:addToggle("No Clip",false,function(t)
+RSFunction:NewToggle("No Clip", "This function will enable no clip for you!",function(t)
   if t == true then
   _G.conn = game:GetService("RunService").Stepped:Connect(function()
      for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
@@ -730,18 +557,16 @@ RSFunction:addToggle("No Clip",false,function(t)
 end)
 
 --Five page
-local page5 = venyx:addPage("Discord", 5012544693)
-local Discord = page5:addSection("Mission Farm")
+local discord = venyx:NewTab("Discord")
+local Discord = discord:NewSection("Discord")
 
-Discord:addButton("Copy Discord Link", function()
+Discord:NewButton("Copy Discord Link", "This function will set our discord link on your clipboard!", function()
     setclipboard("https://discord.gg/64QjKpdjgz")
-    venyx.Notify("Discord link added to your clicpboard")
 end)
 
 -- Theme page
-local settings = venyx:addPage("Settings", 5012544693)
-local colors = settings:addSection("Colors")
-local setting = settings:addSection("Settings")
+local settings = venyx:NewTab("Settings")
+local setting = settings:NewSection("Settings")
 
 function Teleport()
     while game:GetService("RunService").RenderStepped:wait() do
@@ -754,13 +579,13 @@ function Teleport()
     end
  end
 
-setting:addButton("Rejoin",function()
+setting:addButton("Rejoin", "This function will let you rejoin!", function()
     local ts = game:GetService("TeleportService")
     local p = game:GetService("Players").LocalPlayer
     ts:Teleport(game.PlaceId, p)
  end)
 
-setting:addButton("Teleport to lower server",function()
+setting:NewButton("Teleport to lower server", "This function will teleport you to a server with under 3 players!",function()
    getgenv().AutoTeleport = true
    getgenv().DontTeleportTheSameNumber = true 
    getgenv().CopytoClipboard = false
@@ -819,56 +644,6 @@ setting:addButton("Teleport to lower server",function()
        end
 end)
 
-setting:addButton("Delete Ui",function()
-    local ui = game:GetService("CoreGui"):FindFirstChild("Lynzv-CX | Shindo life")
-    if ui then
-        venyx:Notify("The ui will be destroyed in three seconds")
-       ui:Destroy()
-    end
- end)
-
-setting:addButton("Server Hop",function()
+setting:NewButton("Server Hop", "This function will teleport you to another server!",function()
     Teleport()
 end)
-
-setting:addToggle("Autofarm : Magnet",getgenv().Magnet,function(Value)
-	getgenv().Magnet = Value
-   if getgenv().Magnet then
-      Mode = "Magnet"
-   else
-      Mode = "Back"
-   end
-end)
-setting:addToggle("AutoFarm Click",getgenv().AutoFarmClick,function(Value)
-	getgenv().AutoFarmClick = Value
-end)
-
-setting:addToggle("Refresh Mob if it took too long(Soon)",getgenv().MobRefresh,function(value)
-	getgenv().MobRefresh = value
-end)
-
-setting:addToggle("MobAura: Magnet",getgenv().MobAuraBring,function(value)
-   getgenv().MobAuraBring = value
-end)
-
-setting:addKeybind("Hide UI", Enum.KeyCode.RightControl, function()
-    print("Activated Keybind")
-    venyx:toggle()
-    end, function()
-    print("Changed Keybind")
-end)
-
-for theme, color in pairs(themes) do -- all in one theme changer, i know, im cool
-    colors:addColorPicker(theme, color, function(color3)
-    venyx:setTheme(theme, color3)
-    end)
-end
-
--- load
-venyx:SelectPage(venyx.pages[1], true)
-
-venyx:Notify("Loaded")
-wait(0.1)
-venyx:Notify("UI made by venyx.")
-wait(3)
-venyx:Notify("Script made by Corrupt.")
