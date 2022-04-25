@@ -316,6 +316,9 @@ AutoFarm:line()
 
 OtherTab:Label("Credits: Mana#9724 - UI Creator")
 OtherTab:Label("Credits: Corrupt#2625 - Main Script")
+OtherTab:Button("Copy our discord link", function()
+   setclipboard("https://discord.gg/64QjKpdjgz")
+end)
 
 -- Anti AFK
 for i,v in pairs(getconnections(Players.LocalPlayer.Idled)) do
