@@ -1,1 +1,323 @@
- repeat wait() until game:IsLoaded(); getrenv().AutoStep = false; getrenv().AutoRebirth = false; getrenv().AutoCollect = false; getrenv().AutoBankRewards = false; local o = game:GetService("\80\108\97\121\101\114\115"); local c = game:GetService("\84\119\101\101\110\83\101\114\118\105\99\101"); local a = game:GetService("\82\117\110\83\101\114\118\105\99\101"); local l = o.LocalPlayer.Character:WaitForChild("\72\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116"); local n = TweenInfo.new(math.random(1,99), Enum.EasingStyle.Linear); local h = math.random(1,999999999); function m() local r = CFrame.new(h,Rand,h); local j,err = pcall(function() local j = c:Create(l, n, {CFrame=r}); j:Play(); end) end local d = loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\103\105\116\108\97\98\46\99\111\109\47\76\49\90\79\84\47\116\101\115\116\45\112\114\111\106\101\99\116\47\45\47\114\97\119\47\109\97\105\110\47\80\74\77\45\71\85\73"))() local _ = d:_("\86\101\108\108\101\114\105\117\115\32\88", "\83\111\110\105\99\32\83\112\101\101\100\32\83\105\109\117\108\97\116\111\114") local m_ = _:Tab("\65\117\116\111\102\97\114\109") local pm = _:Tab("\67\114\101\100\105\116\115") m_:line() m_:Toggle("\65\117\116\111\32\82\117\110",false, function(t) _G.Run = t if _G.Run == t then local fp = CFrame.new(0,0,0) local k = nil k = hookmetamethod(game, '__namecall', function(self,...) local s = {...} local b = getnamecallmethod() if tostring(self) == 'UpdateCharacterState' and b == 'FireServer' then s = { [1] = { ['Character'] = game:GetService('o').LocalPlayer.Character, ['CFrame'] = fp, ['IsRunning'] = true } } for i = 1,100 do return self.FireServer(self, unpack(s)) end end return k(self,...) end) game:GetService('a').Heartbeat:Connect(function() fp = fp + Vector3.new(10,10,10) end) end end) m_:Toggle("\67\111\108\108\101\99\116\32\65\108\108",false, function(t) _G.Collect = t if _G.Collect == t then repeat wait() until game:IsLoaded() spawn(function() while wait(1) do for i,t in pairs(game:GetService("\87\111\114\107\115\112\97\99\101").Map.Objects:GetChildren()) do if t:IsA("\77\111\100\101\108") then  game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.WorldCurrencyService.RE.PickupCurrency:FireServer(t.Name) end end end end)     end end) m_:Button("\67\111\108\108\101\99\116\32\79\114\98\115\47\82\105\110\103\115", function(t) repeat wait() until game:IsLoaded() spawn(function() while wait(1) do for i,t in pairs(game:GetService("\87\111\114\107\115\112\97\99\101").Map.Objects:GetChildren()) do if t:IsA("\77\111\100\101\108") then  game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.WorldCurrencyService.RE.PickupCurrency:FireServer(t.Name) end end end end)     end) m_:Toggle("\67\111\108\108\101\99\116\32\65\108\108\32\83\101\114\118\101\114\32\72\111\112",false,function() repeat wait() until game:IsLoaded() spawn(function() while wait(1) do for i,t in pairs(game:GetService("\87\111\114\107\115\112\97\99\101").Map.Objects:GetChildren()) do if t:IsA("\77\111\100\101\108") then  game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.WorldCurrencyService.RE.PickupCurrency:FireServer(t.Name) end end end end) spawn(function() wait(6)  local g = game.PlaceId local i = {} local ti = "" local ot = os.date("\33\42\116").hour local co = false local ac = pcall(function() i = game:GetService('HttpService'):JSONDecode(readfile("\78\111\116\83\97\109\101\83\101\114\118\101\114\115\46\106\115\111\110")) end) if not ac then table.insert(i, ot) writefile("\78\111\116\83\97\109\101\83\101\114\118\101\114\115\46\106\115\111\110", game:GetService('HttpService'):JSONEncode(i)) end function p() local la; if ti == "" then la = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/_d/games/' .. g .. '/servers/Public?sortOrder=Asc&limit=100')) else la = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/_d/games/' .. g .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. ti)) end local nl = "" if la.nextPageCursor and la.nextPageCursor ~= "\110\117\108\108" and la.nextPageCursor ~= nil then ti = la.nextPageCursor end local hn = 0; for i,t in pairs(la.data) do local rh = true nl = tostring(t.id) if tonumber(t.maxPlayers) > tonumber(t.playing) then for _,Existing in pairs(i) do if hn ~= 0 then if nl == tostring(Existing) then rh = false end else if tonumber(ot) ~= tonumber(Existing) then local e = pcall(function() delfile("\78\111\116\83\97\109\101\83\101\114\118\101\114\115\46\106\115\111\110") i = {} table.insert(i, ot) end) end end hn = hn + 1 end if rh == true then table.insert(i, nl) wait() pcall(function() writefile("\78\111\116\83\97\109\101\83\101\114\118\101\114\115\46\106\115\111\110", game:GetService('HttpService'):JSONEncode(i)) wait() game:GetService("\84\101\108\101\112\111\114\116\83\101\114\118\105\99\101"):TeleportToPlaceInstance(g, nl, game.Players.LocalPlayer) end) wait(4) end end end end function f() while wait() do pcall(function() p() if ti ~= "" then p() end end) end end getgenv().serverhop = f end) end) m_:Button("\65\117\116\111\32\82\101\98\105\114\116\104", function(t) _G.Rebirth = t if _G.Rebirth == t then spawn(function() game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.LevelingService.RF.AttemptRebirth:InvokeServer() end) end end) m_:line() m_:Toggle("\65\117\116\111\32\66\97\110\107\32\82\101\119\97\114\100\115",false, function(t) _G.Bank = t if _G.Bank == t then spawn(function() while wait(5) do  if AutoBankRewards then local je = game:GetService("\80\108\97\121\101\114\115").LocalPlayer; local dj = game:GetService("\87\111\114\107\115\112\97\99\101").Map.Collision.RewardBanks; local _d = require(game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit); for i,t in pairs(dj:GetChildren()) do if t:IsA("\77\111\100\101\108") then _d.GetService("\82\101\119\97\114\100\83\101\114\118\105\99\101").GiveRewardInBank(je, t.Name);  end end end end end) end end) m_:Toggle("\65\117\116\111\32\71\105\102\116\115",false, function(t) _G.Gifts = t if _G.Gifts == t then spawn(function() local fpm = 1 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 2 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 3 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 4 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 5 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 6 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 7 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 8 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 9 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 10 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 11 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) local fpm = 12 local kf = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit.Services.GratitudeService.RF.AcquireReward kf:InvokeServer(fpm) end) end end) m_:line() m_:Button("\85\110\108\111\99\107\32\87\111\114\108\100\115", function() local ig = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit; local oti = ig.Services.ZoneService.RF.RequestTeleportToZone; local gb = ig.Services.ZoneService.RF.CompleteZoneObby; oti:InvokeServer("\76\111\115\116\32\86\97\108\108\101\121\32\79\98\98\121", "\71\114\101\101\110\32\72\105\108\108\32\69\120\105\116") gb:InvokeServer() wait(0.3) oti:InvokeServer("\69\109\101\114\97\108\100\32\72\105\108\108\32\79\98\98\121", "\76\111\115\116\32\86\97\108\108\101\121\32\69\120\105\116") gb:InvokeServer() wait(0.3) oti:InvokeServer("\83\110\111\119\32\86\97\108\108\101\121\32\79\98\98\121", "\69\109\101\114\97\108\100\32\72\105\108\108\32\69\120\105\116") gb:InvokeServer() end) m_:Button("\85\110\108\111\99\107\32\67\104\97\114\97\99\116\101\114\115", function() local ig = game:GetService("\82\101\112\108\105\99\97\116\101\100\83\116\111\114\97\103\101").Knit; local tig = ig.Services.CharacterService.RE.RequestUnlockCharacter; local oti = ig.Services.ZoneService.RF.RequestTeleportToZone; local cot = ig.Services.RedeemService.RF.RedeemCode; oti:InvokeServer("\71\114\101\101\110\32\72\105\108\108") tig:FireServer("\115\111\110\105\99") wait(0.3) oti:InvokeServer("\76\111\115\116\32\86\97\108\108\101\121") tig:FireServer("\116\97\105\108\115") wait(0.3) oti:InvokeServer("\69\109\101\114\97\108\100\32\72\105\108\108") tig:FireServer("\107\110\117\99\107\108\101\115") wait(0.3) cot:InvokeServer("\114\105\100\101\114\115") end) m_:line() pm:Label("\67\114\101\100\105\116\115\58\32\77\97\110\97\35\57\55\50\52\32\45\32\85\73\32\67\114\101\97\116\111\114") pm:Label("\67\114\101\100\105\116\115\58\32\67\111\114\114\117\112\116\35\50\54\50\53\32\45\32\77\97\105\110\32\83\99\114\105\112\116") for i,t in pairs(getconnections(o.LocalPlayer.Idled)) do t:Disable() end
+-- Wait until fully loaded.
+repeat wait() until game:IsLoaded();
+
+-- Global toggles
+getrenv().AutoStep = false;
+getrenv().AutoRebirth = false;
+getrenv().AutoCollect = false;
+getrenv().AutoBankRewards = false;
+
+-- Random Locals
+local Players = game:GetService("Players");
+local TweenService = game:GetService("TweenService");
+local RunService = game:GetService("RunService");
+local RootPart = Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart");
+local TweenData = TweenInfo.new(math.random(1,99), Enum.EasingStyle.Linear);
+local Rand = math.random(1,999999999);
+
+-- Teleport Func
+function TP()
+    local TPCFrame = CFrame.new(Rand,Rand,Rand);
+    local tween,err = pcall(function()
+        local tween = TweenService:Create(RootPart, TweenData, {CFrame=TPCFrame});
+        tween:Play();
+    end)
+end
+
+-- UI Lib
+local lib = loadstring(game:HttpGet("https://gitlab.com/L1ZOT/test-project/-/raw/main/PJM-GUI"))()
+
+-- Main UI Stuff
+local Window = lib:Window("Vellerius X", "Sonic Speed Simulator")
+local AutoFarm = Window:Tab("Autofarm")
+local OtherTab = Window:Tab("Credits")
+
+AutoFarm:line()
+
+AutoFarm:Toggle("Auto Run",false, function(v)
+    _G.Run = v
+    if _G.Run == v then
+        local FastCFrame = CFrame.new(0,0,0)
+        local OldNamecall = nil
+
+        OldNamecall = hookmetamethod(game, '__namecall', function(self,...)
+            local args = {...}
+            local method = getnamecallmethod()
+            
+            if tostring(self) == 'UpdateCharacterState' and method == 'FireServer' then
+                args = {
+                    [1] = {
+                        ['Character'] = game:GetService('Players').LocalPlayer.Character,
+                        ['CFrame'] = FastCFrame,
+                        ['IsRunning'] = true
+                    }
+                }
+                for i = 1,100 do
+                    return self.FireServer(self, unpack(args))
+                end
+            end
+            
+            return OldNamecall(self,...)
+        end)
+
+        game:GetService('RunService').Heartbeat:Connect(function()
+            FastCFrame = FastCFrame + Vector3.new(10,10,10)
+		end)
+    end
+end)
+
+AutoFarm:Toggle("Collect All",false, function(v)
+    _G.Collect = v
+    if _G.Collect == v then
+        repeat wait() until game:IsLoaded()
+
+        spawn(function()
+            while wait(1) do
+            for i,v in pairs(game:GetService("Workspace").Map.Objects:GetChildren()) do
+                if v:IsA("Model") then 
+                    game:GetService("ReplicatedStorage").Knit.Services.WorldCurrencyService.RE.PickupCurrency:FireServer(v.Name)
+                    end
+                end
+            end
+        end)    
+    end
+end)
+
+AutoFarm:Button("Collect Orbs/Rings", function(v)
+    repeat wait() until game:IsLoaded()
+
+    spawn(function()
+        while wait(1) do
+        for i,v in pairs(game:GetService("Workspace").Map.Objects:GetChildren()) do
+            if v:IsA("Model") then 
+                game:GetService("ReplicatedStorage").Knit.Services.WorldCurrencyService.RE.PickupCurrency:FireServer(v.Name)
+                end
+            end
+        end
+    end)    
+end)
+
+AutoFarm:Toggle("Collect All Server Hop",false,function()
+    repeat wait() until game:IsLoaded()
+
+    spawn(function()
+        while wait(1) do
+        for i,v in pairs(game:GetService("Workspace").Map.Objects:GetChildren()) do
+            if v:IsA("Model") then 
+                game:GetService("ReplicatedStorage").Knit.Services.WorldCurrencyService.RE.PickupCurrency:FireServer(v.Name)
+                end
+            end
+        end
+    end)
+
+    spawn(function()
+        wait(6) --- perfer 6
+        local PlaceID = game.PlaceId
+        local AllIDs = {}
+        local foundAnything = ""
+        local actualHour = os.date("!*t").hour
+        local Deleted = false
+        local File = pcall(function()
+            AllIDs = game:GetService('HttpService'):JSONDecode(readfile("NotSameServers.json"))
+        end)
+        if not File then
+            table.insert(AllIDs, actualHour)
+            writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+        end
+        function TPReturner()
+            local Site;
+            if foundAnything == "" then
+                Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+            else
+                Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+            end
+            local ID = ""
+            if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+                foundAnything = Site.nextPageCursor
+            end
+            local num = 0;
+            for i,v in pairs(Site.data) do
+                local Possible = true
+                ID = tostring(v.id)
+                if tonumber(v.maxPlayers) > tonumber(v.playing) then
+                    for _,Existing in pairs(AllIDs) do
+                        if num ~= 0 then
+                            if ID == tostring(Existing) then
+                                Possible = false
+                            end
+                        else
+                            if tonumber(actualHour) ~= tonumber(Existing) then
+                                local delFile = pcall(function()
+                                    delfile("NotSameServers.json")
+                                    AllIDs = {}
+                                    table.insert(AllIDs, actualHour)
+                                end)
+                            end
+                        end
+                        num = num + 1
+                    end
+                    if Possible == true then
+                        table.insert(AllIDs, ID)
+                        wait()
+                        pcall(function()
+                            writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                            wait()
+                            game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                        end)
+                        wait(4)
+                    end
+                end
+            end
+        end
+
+        function Teleport()
+            while wait() do
+                pcall(function()
+                    TPReturner()
+                    if foundAnything ~= "" then
+                        TPReturner()
+                    end
+                end)
+            end
+        end
+        getgenv().serverhop = Teleport
+    end)
+end)
+
+AutoFarm:Button("Auto Rebirth", function(v)
+    _G.Rebirth = v
+    if _G.Rebirth == v then
+        spawn(function()
+            game:GetService("ReplicatedStorage").Knit.Services.LevelingService.RF.AttemptRebirth:InvokeServer()
+        end)
+    end
+end)
+
+AutoFarm:line()
+
+AutoFarm:Toggle("Auto Bank Rewards",false, function(v)
+    _G.Bank = v
+    if _G.Bank == v then
+        spawn(function()
+            while wait(5) do -- You have to wait 6 hours until you can collect again so we check every 10 mins.
+                if AutoBankRewards then
+                    local Plr = game:GetService("Players").LocalPlayer;
+                    local RewardsBanks = game:GetService("Workspace").Map.Collision.RewardBanks;
+                    local v1 = require(game:GetService("ReplicatedStorage").Knit);
+                    
+                    for i,v in pairs(RewardsBanks:GetChildren()) do
+                        if v:IsA("Model") then
+                            v1.GetService("RewardService").GiveRewardInBank(Plr, v.Name); -- Directly call Knit func.
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end)
+
+-- Auto Gift
+AutoFarm:Toggle("Auto Gifts",false, function(v)
+   _G.Gifts = v
+   if _G.Gifts == v then
+         spawn(function()
+            local A_1 = 1
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+         
+            local A_1 = 2
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+         
+            local A_1 = 3
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+         
+            local A_1 = 4
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+         
+            local A_1 = 5
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+         
+            local A_1 = 6
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+         
+            local A_1 = 7
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+         
+            local A_1 = 8
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+            
+            local A_1 = 9
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+            
+            local A_1 = 10
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+            
+            local A_1 = 11
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+            
+            local A_1 = 12
+            local Event = game:GetService("ReplicatedStorage").Knit.Services.GratitudeService.RF.AcquireReward
+            Event:InvokeServer(A_1)
+         end)
+      end
+end)
+
+AutoFarm:line()
+
+AutoFarm:Button("Unlock Worlds", function()
+    local Knit = game:GetService("ReplicatedStorage").Knit;
+    local RequestTeleportToZone = Knit.Services.ZoneService.RF.RequestTeleportToZone;
+    local CompleteZoneObby = Knit.Services.ZoneService.RF.CompleteZoneObby;
+    
+    RequestTeleportToZone:InvokeServer("Lost Valley Obby", "Green Hill Exit")
+    CompleteZoneObby:InvokeServer()
+    wait(0.3)
+    
+    RequestTeleportToZone:InvokeServer("Emerald Hill Obby", "Lost Valley Exit")
+    CompleteZoneObby:InvokeServer()
+    wait(0.3)
+    
+    RequestTeleportToZone:InvokeServer("Snow Valley Obby", "Emerald Hill Exit")
+    CompleteZoneObby:InvokeServer()
+end)
+
+AutoFarm:Button("Unlock Characters", function()
+    local Knit = game:GetService("ReplicatedStorage").Knit;
+    local RequestUnlockCharacter = Knit.Services.CharacterService.RE.RequestUnlockCharacter;
+    local RequestTeleportToZone = Knit.Services.ZoneService.RF.RequestTeleportToZone;
+    local RedeemCode = Knit.Services.RedeemService.RF.RedeemCode;
+    
+    RequestTeleportToZone:InvokeServer("Green Hill")
+    RequestUnlockCharacter:FireServer("sonic")
+    wait(0.3)
+    
+    RequestTeleportToZone:InvokeServer("Lost Valley")
+    RequestUnlockCharacter:FireServer("tails")
+    wait(0.3)
+    
+    RequestTeleportToZone:InvokeServer("Emerald Hill")
+    RequestUnlockCharacter:FireServer("knuckles")
+    wait(0.3)
+    
+    RedeemCode:InvokeServer("riders")
+end)
+
+AutoFarm:line()
+
+OtherTab:Label("Credits: Mana#9724 - UI Creator")
+OtherTab:Label("Credits: Corrupt#2625 - Main Script")
+
+-- Anti AFK
+for i,v in pairs(getconnections(Players.LocalPlayer.Idled)) do
+    v:Disable()
+end
