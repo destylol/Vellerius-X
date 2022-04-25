@@ -97,7 +97,7 @@ AutoFarm:Button("Collect Orbs/Rings", function(v)
     end)    
 end)
 
-AutoFarm:Toggle("Collect All Server Hop",false,function()
+AutoFarm:Button("Collect All Server Hop",function()
     repeat wait() until game:IsLoaded()
 
     spawn(function()
